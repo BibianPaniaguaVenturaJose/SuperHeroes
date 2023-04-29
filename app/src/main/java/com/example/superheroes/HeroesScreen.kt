@@ -49,7 +49,6 @@ fun HeroesList(
 ) {
     val visibleState = remember {
         MutableTransitionState(false).apply {
-            // Start the animation immediately.
             targetState = true
         }
     }
@@ -68,14 +67,13 @@ fun HeroesList(
                     hero = hero,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
-                        // Animate each list item to slide in vertically
                         .animateEnterExit(
                             enter = slideInVertically(
                                 animationSpec = spring(
                                     stiffness = StiffnessVeryLow,
                                     dampingRatio = DampingRatioLowBouncy
                                 ),
-                                initialOffsetY = { it * (index + 1) } // staggered entrance
+                                initialOffsetY = { it * (index + 1) }
                             )
                         )
                 )
@@ -148,10 +146,6 @@ fun HeroesPreview() {
         Surface (
             color = MaterialTheme.colors.background
         ) {
-            /* Important: It is not a good practice to access data source directly from the UI.
-            In later units you will learn how to use ViewModel in such scenarios that takes the
-            data source as a dependency and exposes heroes.
-            */
             HeroesList(heroes = HeroesRepository.heroes)
         }
     }
